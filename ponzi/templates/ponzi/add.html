@@ -1,0 +1,32 @@
+{% extends "ponzi/base.html" %}
+
+{% block content %}
+{% load static %}
+
+<style>
+#id_user_addr {
+    width: 100%;
+    padding: 10px;
+    border: solid 1px #ccc;
+    transition: box-shadow 0.3s, border 0.3s;
+    color: #707070;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+}
+#id_user_addr:focus,
+#id_user_addr.focus {
+    border: solid 1px #707070;
+    box-shadow: 0 0 5px 1px #969696;
+}
+</style>
+
+<div class="content">
+<form action="." method="post">
+    {% csrf_token %}
+    {{form.user_addr}}
+    {{form.user_addr.errors}}
+    <br /><br />
+    <input class="belize-hole-flat-button" type="submit" value="Add" />
+</form>
+</div>
+{% endblock %}

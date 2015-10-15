@@ -1,0 +1,35 @@
+{% extends "ponzi/base.html" %}
+
+{% block content %}
+
+<div class="content">
+<table class="font1">
+    <tr>
+        <th>User's address</th>
+        <th>MegaPonzi's address</th>
+    </tr>
+{% for addresspair in addresspairs %}
+    <tr>
+    {# Each "addresspair" is a addresspair model object. #}
+    <td>{{addresspair.user_addr }}</td><td>{{addresspair.site_addr}}</td>
+    </tr>
+{% endfor %}
+</table>
+<br />
+<div class="pagination font1">
+    <span class="step-links">
+        {% if addresspairs.has_previous %}
+            <a href="?page={{ addresspairs.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ addresspairs.number }} of {{ addresspairs.paginator.num_pages }}.
+        </span>
+
+        {% if addresspairs.has_next %}
+            <a href="?page={{ addresspairs.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+</div>
+{% endblock %}

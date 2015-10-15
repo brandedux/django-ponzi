@@ -1,0 +1,14 @@
+{% load staticfiles %}
+<link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static "ponzi/main.css" %}">
+<div class="header">MegaPonzi</div>
+
+<div class="content">
+<form action="." method="post">
+    {% csrf_token %}
+    {{form.user_addr}}
+    {{form.user_addr.errors}}
+    <br /><br />
+    <input class="belize-hole-flat-button" type="submit" value="Add" />
+</form>
+</div>
