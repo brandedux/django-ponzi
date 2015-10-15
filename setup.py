@@ -11,6 +11,7 @@ setup(
     name='django-ponzi',
     version='0.1',
     packages=['ponzi'],
+    install_requires=['django', 'bitcoin-python'],
     include_package_data=True,
     license='GNU GENERAL PUBLIC LICENSE VERSION 3',
     description='A cryptocurrency ponzi app for Django.',
