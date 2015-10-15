@@ -3,7 +3,7 @@ from django.conf import settings
 PONZI_WALLET_HOST = getattr(settings, 'PONZI_WALLET_HOST', 'localhost')
 PONZI_WALLET_PORT = getattr(settings, 'PONZI_WALLET_PORT', 8332)
 PONZI_WALLET_RPC_USER = getattr(settings, 'PONZI_WALLET_RPC_USER', "bitcoinrpc")
-PONZI_WALLET_RPC_PASSWORD = getattr(settings, 'PONZI_WALLET_RPC_PASSWORD',  ("password",
+PONZI_WALLET_RPC_PASSWORD = getattr(settings, 'PONZI_WALLET_RPC_PASSWORD', "password")
 PONZI_WALLET_PASSPHRASE = getattr(settings, 'PONZI_WALLET_PASSPHRASE', "password")
 PONZI_USER_REWARD = getattr(settings, 'PONZI_USER_REWARD', 30)
 PONZI_ADMIN_REWARD = getattr(settings, 'PONZI_ADMIN_REWARD', 5) 
