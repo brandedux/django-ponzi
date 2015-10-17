@@ -13,7 +13,7 @@ setup(
     packages=['ponzi'],
     install_requires=['django', 'bitcoin-python'],
     include_package_data=True,
-    license='GNU GENERAL PUBLIC LICENSE VERSION 3',
+    license='BSD License',
     description='A cryptocurrency ponzi app for Django.',
     long_description=README,
     url='https://github.com/realspencerdupre/django-ponzi',
@@ -23,7 +23,7 @@ setup(
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU GENERAL PUBLIC LICENSE VERSION 3', # example license
+        'License :: OSI Approved :: BSD License', # example license
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7',
