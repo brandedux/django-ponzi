@@ -7,4 +7,5 @@ urlpatterns = patterns(
     url(r'^index.html$', views.simple_index, name='simple_index'),
     url(r'^add/$', views.add, name='add'),
     url(r'^list/$', views.addr_list, name='addr_list'),
+    url(r'^callback/$', views.callback, name='callback'),
     )

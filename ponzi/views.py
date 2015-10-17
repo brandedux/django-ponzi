@@ -50,7 +50,9 @@ def addr_list(request):
         # If page is out of range (e.g. 9999), deliver last page of results.
         addresspairs = paginator.page(paginator.num_pages)
 
-    return render(request, 'ponzi/addr_list.html', {"addresspairs": addresspairs})
+    return render(request, 'ponzi/addr_list.html', {'addresspairs': addresspairs})
 
-def simple_index(request):
-    return HttpResponse("MegaPonzi")
+def callback(request):
+    from ponzi.utils import process_tx
+    if request.GET['transaction_hash']:
+        process_tx(request.GET['transaction_hash'])
