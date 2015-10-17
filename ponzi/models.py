@@ -7,7 +7,7 @@ from datetime import datetime
 
 
 class AddressPair(models.Model):
-    user_addr = models.CharField(max_length=40, unique=True)
+    user_addr = models.CharField(max_length=35, unique=True)
     site_addr = models.CharField(max_length=35, null=True)
 
     def __str__(self):
