@@ -1,20 +1,19 @@
 from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
-from django.http import HttpResponse
-
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .forms import RegisterForm
-from .models import AddressPair
+from .models import AddressPair, Tx
 from .utils import get_server
-# Create your views here.
+
 
 class IndexView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         return '/add/'
 
 index = IndexView.as_view()
+
 
 class AddView(FormView):
     template_name = 'ponzi/add.html'
@@ -36,9 +35,10 @@ class AddView(FormView):
 
 add = AddView.as_view()
 
+
 def addr_list(request):
     addresspair_list = AddressPair.objects.all()
-    paginator = Paginator(addresspair_list, 25) # Show 25 contacts per page
+    paginator = Paginator(addresspair_list, 25)  # Show 25 contacts per page
 
     page = request.GET.get('page')
     try:
@@ -52,7 +52,7 @@ def addr_list(request):
 
     return render(request, 'ponzi/addr_list.html', {'addresspairs': addresspairs})
 
+
 def callback(request):
-    from ponzi.utils import process_tx
     if request.GET['transaction_hash']:
-        process_tx(request.GET['transaction_hash'])
+        Tx.process_tx(request.GET['transaction_hash'])
