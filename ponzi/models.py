@@ -7,11 +7,15 @@ from datetime import datetime
 
 
 class AddressPair(models.Model):
-    user_addr = models.CharField(max_length=35, unique=True)
+    user_addr = models.CharField(max_length=40, unique=True)
     site_addr = models.CharField(max_length=35, null=True)
 
     def __str__(self):
         return "User:{0} ___ Site:{1}".format(self.user_addr, self.site_addr)
+    
+    @property
+    def user_addr_unique(self):
+        return 'IUSER' + self.user_addr
 
 
 class RewardPeriod(models.Model):
@@ -50,7 +54,7 @@ class RewardPeriod(models.Model):
                                 isreward=False).order_by('date')[0]
         if tx.get_reward_threshold()+FEE_BUFFER <= self.get_total():
             server = get_server()
-            account = tx.addresspair.user_addr
+            account = tx.addresspair.user_addr_unique
 
             try:
                 server.walletpassphrase(PONZI_WALLET_PASSPHRASE, 600)
@@ -103,12 +107,16 @@ class Tx(models.Model):
         transaction = server.gettransaction(txid)
 
         for d in transaction.details:
-            if d['category'] == 'receive':
-                isreward = False
-                addresspairs = AddressPair.objects.filter(user_addr=d['account'])
-            elif d['category'] == 'send':
-                isreward = True
-                addresspairs = AddressPair.objects.filter(user_addr=d['address'])
+            addresspairs = None
+            if d['account']:
+                print d['account']
+                if d['category'] == 'receive':
+                    isreward = False
+                    addresspairs = AddressPair.objects.filter(user_addr=d['account'][5:])
+                    print addresspairs
+                elif d['category'] == 'send':
+                    isreward = True
+                    addresspairs = AddressPair.objects.filter(user_addr=d['address'])
 
             if addresspairs:
                 addresspair = addresspairs[0]

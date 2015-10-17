@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views.generic.edit import FormView
 from django.views.generic.base import RedirectView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponse
 
 from .forms import RegisterForm
 from .models import AddressPair, Tx
@@ -26,8 +27,7 @@ class AddView(FormView):
         instance = form.save()
 
         server = get_server()
-        user_addr = instance.user_addr
-        site_addr = server.getaccountaddress(user_addr)
+        site_addr = server.getaccountaddress(instance.user_addr_unique)
         instance.site_addr = site_addr
         instance.save()
 
@@ -54,5 +54,8 @@ def addr_list(request):
 
 
 def callback(request):
-    if request.GET['transaction_hash']:
+    if 'transaction_hash' in request.GET:
         Tx.process_tx(request.GET['transaction_hash'])
+        return HttpResponse('True')
+    else:
+        return HttpResponse('False')
