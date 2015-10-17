@@ -52,7 +52,7 @@ class RewardPeriod(models.Model):
                                 rewarded=False,
                                 donation=False,
                                 isreward=False).order_by('date')[0]
-        if tx.get_reward_threshold()+FEE_BUFFER <= self.get_total():
+        if tx.get_reward_threshold()+PONZI_FEE_BUFFER <= self.get_total():
             server = get_server()
             account = tx.addresspair.user_addr_unique
 
